@@ -1,0 +1,61 @@
+{
+  "name": "Autograph Identifier",
+  "short_name": "Autograph ID",
+  "description": "AI-powered autograph authentication and signature verification app for collectors and enthusiasts.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2563eb",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["utilities", "productivity", "business"],
+  "icons": [
+    {
+      "src": "autograph-identifier-logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "autograph-identifier-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "autograph-identifier-logo.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Autograph Identifier Landing Page"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://autographidentifier.app/"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/us/app/autograph-identifier/id6749822952"
+    }
+  ],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Download App",
+      "short_name": "Download",
+      "description": "Download Autograph Identifier from App Store",
+      "url": "https://apps.apple.com/us/app/autograph-identifier/id6749822952",
+      "icons": [
+        {
+          "src": "autograph-identifier-logo.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}
