@@ -27,6 +27,13 @@
     <link rel="apple-touch-icon" href="/assets/logo-192.png">
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="/assets/style.css">
+    <script>
+        (function () {
+            var ua = navigator.userAgent, d = document.documentElement;
+            if (/Android/i.test(ua)) d.className += ' ua-android';
+            else if (/iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1)) d.className += ' ua-ios';
+        })();
+    </script>
     
 </head>
 <body>
@@ -95,8 +102,14 @@
         </div>
     </footer>
 
+    <a class="mobile-cta" href="/get/">Get the app · 1 free scan</a>
+
     <script>
         (function () {
+            var cta = document.querySelector('.mobile-cta');
+            var cls = document.documentElement.className;
+            if (cta && cls.indexOf('ua-android') > -1) cta.href = 'https://play.google.com/store/apps/details?id=com.autographidentifier';
+            if (cta && cls.indexOf('ua-ios') > -1) cta.href = 'https://apps.apple.com/app/autograph-identifier/id6749822952';
             var btn = document.querySelector('.hamburger');
             var nav = document.getElementById('navLinks');
             function setOpen(open) {

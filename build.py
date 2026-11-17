@@ -55,8 +55,12 @@ def stars(value):
 
 def badges():
     return f"""<div class="badges">
-    <a href="{APP_STORE}" aria-label="Download Autograph Identifier on the App Store"><img class="badge-apple" src="/assets/app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a>
-    <a href="{PLAY_STORE}" aria-label="Get Autograph Identifier on Google Play"><img class="badge-google" src="/assets/google-play-badge.png" alt="Get it on Google Play" width="207" height="80"></a>
+    <a class="store-ios" href="{APP_STORE}" aria-label="Download Autograph Identifier on the App Store"><img class="badge-apple" src="/assets/app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a>
+    <a class="store-android" href="{PLAY_STORE}" aria-label="Get Autograph Identifier on Google Play"><img class="badge-google" src="/assets/google-play-badge.png" alt="Get it on Google Play" width="207" height="80"></a>
+</div>
+<div class="qr-card">
+    <img src="/assets/qr-get.svg" alt="QR code to download Autograph Identifier on your phone" width="92" height="92">
+    <span><strong>On a computer?</strong> Point your phone camera at the code to get the app.</span>
 </div>"""
 
 
@@ -85,7 +89,16 @@ def faq_html(faq):
     return f'<div class="faq">{items}</div>'
 
 
-def layout(path, title, desc, body, schema="", og_type="website"):
+PLATFORM_JS = """<script>
+        (function () {
+            var ua = navigator.userAgent, d = document.documentElement;
+            if (/Android/i.test(ua)) d.className += ' ua-android';
+            else if (/iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1)) d.className += ' ua-ios';
+        })();
+    </script>"""
+
+
+def layout(path, title, desc, body, schema="", og_type="website", sticky=True):
     url = SITE + path
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -116,6 +129,7 @@ def layout(path, title, desc, body, schema="", og_type="website"):
     <link rel="apple-touch-icon" href="/assets/logo-192.png">
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="/assets/style.css">
+    {PLATFORM_JS}
     {schema}
 </head>
 <body>
@@ -172,8 +186,14 @@ def layout(path, title, desc, body, schema="", og_type="website"):
         </div>
     </footer>
 
+    {'<a class="mobile-cta" href="/get/">Get the app · 1 free scan</a>' if sticky else ''}
+
     <script>
         (function () {{
+            var cta = document.querySelector('.mobile-cta');
+            var cls = document.documentElement.className;
+            if (cta && cls.indexOf('ua-android') > -1) cta.href = '{PLAY_STORE}';
+            if (cta && cls.indexOf('ua-ios') > -1) cta.href = '{APP_STORE}';
             var btn = document.querySelector('.hamburger');
             var nav = document.getElementById('navLinks');
             function setOpen(open) {{
@@ -664,6 +684,30 @@ def build_404():
                                     'content="noindex"'))
 
 
+def build_get():
+    redirect = f"""<script>
+        (function () {{
+            var cls = document.documentElement.className;
+            if (cls.indexOf('ua-android') > -1) location.replace('{PLAY_STORE}');
+            else if (cls.indexOf('ua-ios') > -1) location.replace('{APP_STORE}');
+        }})();
+    </script>"""
+    body = f"""
+<section class="cta-band" style="min-height:70vh;display:flex;align-items:center">
+    <div class="container">
+        <h1 style="font-size:2.2rem;margin-bottom:12px">Get Autograph Identifier</h1>
+        <p>Choose your store, or scan the code with your phone camera.</p>
+        {badges()}
+        <p class="small">iPhone and iPad (iOS 17.5 or later) · Android · Free to download with 1 free scan</p>
+    </div>
+</section>
+"""
+    page = layout("/get/", "Get Autograph Identifier for iPhone and Android",
+                  "Download Autograph Identifier from the App Store or Google Play.", body, redirect, sticky=False)
+    write("/get/", page.replace('content="index, follow, max-image-preview:large, max-snippet:-1"',
+                                'content="noindex, follow"'))
+
+
 if __name__ == "__main__":
     build_home()
     build_people_hub()
@@ -674,4 +718,5 @@ if __name__ == "__main__":
         build_article(article)
     build_sitemap()
     build_404()
+    build_get()
     print(f"Built {3 + len(PEOPLE) + len(ARTICLES)} pages · rating {RATING['value']} ({RATING['count']}) as of {RATING['fetched']}")

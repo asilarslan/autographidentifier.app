@@ -64,6 +64,15 @@ header.site nav { display: flex; align-items: center; justify-content: space-bet
 .phone { width: 300px; max-width: 100%; margin: 0 auto; border: 10px solid #0b1220; border-bottom: 0; border-radius: 42px 42px 0 0; overflow: hidden; background: #000; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45); line-height: 0; }
 .phone img { width: 100%; display: block; }
 
+.qr-card { display: inline-flex; align-items: center; gap: 14px; margin-top: 18px; padding: 10px 16px 10px 10px; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 14px; color: #fff; font-size: 0.9rem; line-height: 1.4; max-width: 330px; text-align: left; }
+.qr-card img { width: 92px; height: 92px; border-radius: 8px; background: #fff; flex: none; display: block; }
+.qr-card strong { display: block; }
+
+/* Phones only need their own store */
+.ua-ios .store-android, .ua-android .store-ios { display: none; }
+
+.mobile-cta { display: none; }
+
 /* Sections */
 section { padding: 72px 0; }
 section.alt { background: var(--soft); }
@@ -164,6 +173,9 @@ footer.site a:hover { color: #fff; }
 footer.site .copy { border-top: 1px solid #1e293b; padding-top: 22px; color: #94a3b8; font-size: 0.85rem; }
 
 @media (max-width: 860px) {
+    .qr-card { display: none; }
+    .mobile-cta { display: block; position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 90; background: var(--ink); color: #fff; text-align: center; text-decoration: none; font-weight: 700; font-size: 1rem; padding: 14px 16px; border-radius: 14px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.35); border: 1px solid rgba(255, 255, 255, 0.25); }
+    footer.site { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
     .hamburger { display: block; }
     .nav-links { display: none; position: absolute; top: 64px; right: 0; left: 0; background: #fff; flex-direction: column; align-items: stretch; gap: 0; padding: 8px 20px 16px; margin: 0 -20px; border-bottom: 1px solid var(--line); box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08); }
     .nav-links.active { display: flex; }

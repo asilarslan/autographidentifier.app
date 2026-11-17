@@ -27,6 +27,13 @@
     <link rel="apple-touch-icon" href="/assets/logo-192.png">
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="/assets/style.css">
+    <script>
+        (function () {
+            var ua = navigator.userAgent, d = document.documentElement;
+            if (/Android/i.test(ua)) d.className += ' ua-android';
+            else if (/iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1)) d.className += ' ua-ios';
+        })();
+    </script>
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Walt Disney Autograph: Real vs Fake Signature Guide", "description": "How to identify a genuine Walt Disney autograph: signature characteristics, common fakes and how to verify it. The famous logo is not his handwriting, and studio artists often signed for him.", "about": {"@type": "Thing", "name": "Walt Disney autograph"}, "datePublished": "2026-11-17", "dateModified": "2026-11-17", "author": {"@type": "Organization", "name": "Autograph Identifier", "url": "https://autographidentifier.app/"}, "publisher": {"@type": "Organization", "name": "Autograph Identifier", "logo": {"@type": "ImageObject", "url": "https://autographidentifier.app/assets/logo-512.png"}}, "mainEntityOfPage": "https://autographidentifier.app/signatures/walt-disney/", "image": "https://autographidentifier.app/assets/og-image.png"}</script>
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://autographidentifier.app/"}, {"@type": "ListItem", "position": 2, "name": "Signature guides", "item": "https://autographidentifier.app/signatures/"}, {"@type": "ListItem", "position": 3, "name": "Walt Disney", "item": "https://autographidentifier.app/signatures/walt-disney/"}]}</script>
 </head>
@@ -69,8 +76,12 @@
     <h2>Have a Walt Disney autograph?</h2>
     <p>Check it with AI in seconds. Photograph the signature and get the identified name, an authenticity assessment and any red flags.</p>
     <div class="badges">
-    <a href="https://apps.apple.com/app/autograph-identifier/id6749822952" aria-label="Download Autograph Identifier on the App Store"><img class="badge-apple" src="/assets/app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a>
-    <a href="https://play.google.com/store/apps/details?id=com.autographidentifier" aria-label="Get Autograph Identifier on Google Play"><img class="badge-google" src="/assets/google-play-badge.png" alt="Get it on Google Play" width="207" height="80"></a>
+    <a class="store-ios" href="https://apps.apple.com/app/autograph-identifier/id6749822952" aria-label="Download Autograph Identifier on the App Store"><img class="badge-apple" src="/assets/app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a>
+    <a class="store-android" href="https://play.google.com/store/apps/details?id=com.autographidentifier" aria-label="Get Autograph Identifier on Google Play"><img class="badge-google" src="/assets/google-play-badge.png" alt="Get it on Google Play" width="207" height="80"></a>
+</div>
+<div class="qr-card">
+    <img src="/assets/qr-get.svg" alt="QR code to download Autograph Identifier on your phone" width="92" height="92">
+    <span><strong>On a computer?</strong> Point your phone camera at the code to get the app.</span>
 </div>
     <p class="free-note">Free to download · 1 free scan included</p>
 </div>
@@ -162,8 +173,14 @@
         </div>
     </footer>
 
+    <a class="mobile-cta" href="/get/">Get the app · 1 free scan</a>
+
     <script>
         (function () {
+            var cta = document.querySelector('.mobile-cta');
+            var cls = document.documentElement.className;
+            if (cta && cls.indexOf('ua-android') > -1) cta.href = 'https://play.google.com/store/apps/details?id=com.autographidentifier';
+            if (cta && cls.indexOf('ua-ios') > -1) cta.href = 'https://apps.apple.com/app/autograph-identifier/id6749822952';
             var btn = document.querySelector('.hamburger');
             var nav = document.getElementById('navLinks');
             function setOpen(open) {
